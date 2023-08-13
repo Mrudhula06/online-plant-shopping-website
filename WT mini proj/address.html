@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Address Page</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('https://images.alphacoders.com/107/107751.jpg');
+      background-repeat: no-repeat;
+      background-position: fixed;
+      background-size: cover;
+      margin: 0 auto;
+      padding-top: 30px;
+    }
+
+    .form-box {
+      position: relative;
+      width: 550px;
+      height: 650px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #000;
+      text-align: center;
+    }
+
+    .inputbox {
+      position: relative;
+      margin: 30px 0;
+      width: 310px;
+      border-bottom: 2px solid #000;
+    }
+
+    .inputbox label {
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      color: #000;
+      font-size: 1em;
+      pointer-events: none;
+    }
+
+    input:focus ~ label,
+    input:valid ~ label {
+      top: -5px;
+    }
+
+    .inputbox input {
+      width: 100%;
+      height: 50px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1em;
+      padding: 0 35px 0 5px;
+      color: #000;
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 40px;
+      border-radius: 40px;
+      background: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
+    .submit-btn a {
+      text-decoration: none;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 5px;
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <form id="address-form">
+      <h2>Address Details</h2>
+      <div class="inputbox">
+        <input type="text" id="fullname" >
+        <label for="fullname">Full Name</label>
+        <span id="fullname-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="address-line1">
+        <label for="address-line1">Address Line 1</label>
+        <span id="address-line1-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="address-line2">
+        <label for="address-line2">Address Line 2</label>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="city">
+        <label for="city">City</label>
+        <span id="city-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="state">
+        <label for="state">State</label>
+        <span id="state-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="zipcode">
+        <label for="zipcode">Zip Code</label>
+        <span id="zipcode-error" class="error-message" style="color: red;"></span>
+      </div>
+      <input type="submit" class="submit-btn" value="Submit">
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("address-form").addEventListener("submit", function(event) {
+      var fullnameInput = document.getElementById("fullname");
+      var addressLine1Input = document.getElementById("address-line1");
+      var cityInput = document.getElementById("city");
+      var stateInput = document.getElementById("state");
+      var zipcodeInput = document.getElementById("zipcode");
+
+      var fullnameError = document.getElementById("fullname-error");
+      var addressLine1Error = document.getElementById("address-line1-error");
+      var cityError = document.getElementById("city-error");
+      var stateError = document.getElementById("state-error");
+      var zipcodeError = document.getElementById("zipcode-error");
+
+      var isValid = true;
+
+      // Validate fullname field
+      if (fullnameInput.value.trim() === "") {
+        fullnameInput.classList.add("error");
+        fullnameError.textContent = "Full Name is required";
+        isValid = false;
+      } else {
+        fullnameInput.classList.remove("error");
+        fullnameError.textContent = "";
+      }
+
+      // Validate address line 1 field
+      if (addressLine1Input.value.trim() === "") {
+        addressLine1Input.classList.add("error");
+        addressLine1Error.textContent = "Address Line 1 is required";
+        isValid = false;
+      } else {
+        addressLine1Input.classList.remove("error");
+        addressLine1Error.textContent = "";
+      }
+
+      // Validate city field
+      if (cityInput.value.trim() === "") {
+        cityInput.classList.add("error");
+        cityError.textContent = "City is required";
+        isValid = false;
+      } else {
+        cityInput.classList.remove("error");
+        cityError.textContent = "";
+      }
+
+      // Validate state field
+      if (stateInput.value.trim() === "") {
+        stateInput.classList.add("error");
+        stateError.textContent = "State is required";
+        isValid = false;
+      } else {
+        stateInput.classList.remove("error");
+        stateError.textContent = "";
+      }
+
+      // Validate zipcode field
+      if (zipcodeInput.value.trim() === "" || isNaN(zipcodeInput.value.trim())) {
+        zipcodeInput.classList.add("error");
+        zipcodeError.textContent = "Invalid Zip Code";
+        isValid = false;
+      } else {
+        zipcodeInput.classList.remove("error");
+        zipcodeError.textContent = "";
+      }
+
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

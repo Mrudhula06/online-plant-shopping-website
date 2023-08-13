@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Payment Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url('https://images.alphacoders.com/107/107751.jpg');
+      background-repeat: no-repeat;
+      background-position: fixed;
+      background-size: cover;
+      margin: 0 auto;
+      padding-top: 30px;
+    }
+
+    .form-box {
+      position: relative;
+      width: 550px;
+      height: 650px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h2 {
+      font-size: 2em;
+      color: #000;
+      text-align: center;
+    }
+
+    .inputbox {
+      position: relative;
+      margin: 30px 0;
+      width: 310px;
+      border-bottom: 2px solid #000;
+    }
+
+    .inputbox label {
+      position: absolute;
+      top: 50%;
+      left: 5px;
+      transform: translateY(-50%);
+      color: #000;
+      font-size: 1em;
+      pointer-events: none;
+    }
+
+    input:focus ~ label,
+    input:valid ~ label {
+      top: -5px;
+    }
+
+    .inputbox input {
+      width: 100%;
+      height: 50px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1em;
+      padding: 0 35px 0 5px;
+      color: #000;
+    }
+
+    .submit-btn {
+      width: 100%;
+      height: 40px;
+      border-radius: 40px;
+      background: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
+    .submit-btn a {
+      text-decoration: none;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 5px;
+      font-size: 0.8em;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-box">
+    <form id="payment-form">
+      <h2>Payment Form</h2>
+      <div class="inputbox">
+        <input type="text" id="name">
+        <label for="name">Name</label>
+        <span id="name-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="card-number">
+        <label for="card-number">Card Number</label>
+        <span id="card-number-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="expiry-date">
+        <label for="expiry-date">Expiry Date</label>
+        <span id="expiry-date-error" class="error-message" style="color: red;"></span>
+      </div>
+      <div class="inputbox">
+        <input type="text" id="cvv" >
+        <label for="cvv">CVV</label>
+        <span id="cvv-error" class="error-message" style="color: red;"></span>
+      </div>
+      <input type="submit" class="submit-btn" value="Pay">
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("payment-form").addEventListener("submit", function(event) {
+      var nameInput = document.getElementById("name");
+      var cardNumberInput = document.getElementById("card-number");
+      var expiryDateInput = document.getElementById("expiry-date");
+      var cvvInput = document.getElementById("cvv");
+
+      var nameError = document.getElementById("name-error");
+      var cardNumberError = document.getElementById("card-number-error");
+      var expiryDateError = document.getElementById("expiry-date-error");
+      var cvvError = document.getElementById("cvv-error");
+
+      var isValid = true;
+
+      // Validate name field
+      if (nameInput.value.trim() === "") {
+        nameInput.classList.add("error");
+        nameError.textContent = "Name is required";
+        isValid = false;
+      } else {
+        nameInput.classList.remove("error");
+        nameError.textContent = "";
+      }
+
+      // Validate card number field
+      if (cardNumberInput.value.trim() === "" || isNaN(cardNumberInput.value.trim())) {
+        cardNumberInput.classList.add("error");
+        cardNumberError.textContent = "Invalid card number";
+        isValid = false;
+      } else {
+        cardNumberInput.classList.remove("error");
+        cardNumberError.textContent = "";
+      }
+
+      // Validate expiry date field
+      if (expiryDateInput.value.trim() === "" || !/^\d{2}\/\d{2}$/.test(expiryDateInput.value.trim())) {
+        expiryDateInput.classList.add("error");
+        expiryDateError.textContent = "Invalid expiry date";
+        isValid = false;
+      } else {
+        expiryDateInput.classList.remove("error");
+        expiryDateError.textContent = "";
+      }
+
+      // Validate CVV field
+      if (cvvInput.value.trim() === "" || isNaN(cvvInput.value.trim()) || cvvInput.value.trim().length !== 3) {
+        cvvInput.classList.add("error");
+        cvvError.textContent = "Invalid CVV";
+        isValid = false;
+      } else {
+        cvvInput.classList.remove("error");
+        cvvError.textContent = "";
+      }
+
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
